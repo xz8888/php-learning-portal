@@ -7,8 +7,7 @@ $target = $_REQUEST['target'];
 if (isset($_SESSION['user_name'])) {
 	header('Location: ' . $target);
 } else {
-	$nonce = dechex(mt_rand()) . dechex(mt_rand()) . dechex(mt_rand())
-			. dechex(mt_rand());
+	$nonce = bin2hex(openssl_random_pseudo_bytes(20));
 	$_SESSION['nonce'] = $nonce;
 	$_SESSION['target'] = $target;
 	$location = $ekp_base . 'servlet/ekp/authenticate?nonce=' . urlencode($nonce)
